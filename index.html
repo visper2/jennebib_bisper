@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>You’ve got this!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+
+  <main class="card">
+    <div class="badge">Finals ni Busseng</div>
+    <h1>Hi, <span>Jennievieve</span> 💙</h1>
+    <p class="sub">Tap mo, para sayo po ito.</p>
+
+    <div class="buttons">
+      <button data-type="cheer">💪 Cheer me up</button>
+      <button data-type="tired">😴 I’m tired</button>
+      <button data-type="nervous">😰 I’m nervous</button>
+      <button data-type="letter">💌 A note for you</button>
+    </div>
+
+    <div id="reveal" class="reveal">
+      <p id="msg">Pick a button 👆</p>
+    </div>
+
+    <p class="from">Cheering for my busseng,<br><b>Jeyan</b></p>
+  </main>
+
+  <script>
+    const words = {
+      cheer: [
+        "Lablab kasaken 💙",
+        "Palo ka mag study ay. Tiwala lngs po🌟",
+        "Di susuko ang GWAPA✨"
+      ],
+      tired: [
+        "Dahan dahan lngs. 🌸",
+        "Kalmahan molang busseng. 😌",
+        "Malapit na yan 💙"
+      ],
+      nervous: [
+        "Kaya mo yan busseng! 💪",
+        "Bading ka pag kakabahan ka. 😎",
+        "Pokus sa goal 🦋"
+      ],
+      letter: [
+        "I believe in you. 💙",
+        "I’m proud of you. 🥹",
+        "I’m with you, always. 🤗",
+        "Good luck, Jennievieve! 🍀"
+      ]
+    };
+
+    const reveal = document.getElementById("reveal");
+    const msg = document.getElementById("msg");
+    const count = { cheer: 0, tired: 0, nervous: 0, letter: 0 };
+
+    document.querySelectorAll(".buttons button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const type = btn.dataset.type;
+        const list = words[type];
+        msg.textContent = list[count[type]++ % list.length];
+
+        reveal.classList.remove("show");
+        void reveal.offsetWidth;
+        reveal.classList.add("show");
+
+        burst(btn);
+      });
+    });
+
+    function burst(btn) {
+      const r = btn.getBoundingClientRect();
+      for (let n = 0; n < 10; n++) {
+        const h = document.createElement("div");
+        h.className = "pop";
+        h.textContent = ["💙", "🩵", "✨", "🦋", "☁️"][Math.floor(Math.random() * 5)];
+        h.style.left = r.left + r.width / 2 + "px";
+        h.style.top = r.top + "px";
+        h.style.setProperty("--x", (Math.random() * 200 - 100) + "px");
+        h.style.setProperty("--y", -(80 + Math.random() * 140) + "px");
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 1200);
+      }
+    }
+
+    function heart() {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.textContent = ["💙", "🩵", "✨", "🦋", "☁️"][Math.floor(Math.random() * 5)];
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.fontSize = 18 + Math.random() * 22 + "px";
+      h.style.animationDuration = 4 + Math.random() * 3 + "s";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 7500);
+    }
+    setInterval(heart, 600);
+  </script>
+</body>
+</html>
